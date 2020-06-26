@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!doctype html>
+<script type="text/javascript" src="{{ url_for('static', filename = 'homePage.js') }}"></script>
+
+<script type="text/javascript">
+    isInteractive = true;
+</script>
+
+<style type="text/css">
+  #info{
+    color: #8d9da5;
+    text-align: center;
+  }
+
+  #title {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 200px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 700;
+    /*line-height: 0.8;*/
+
+    color: #102456;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+    line-height: 0.6;
+    padding-top: 5%;
+  }
+  #buttonDiv {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    /*font-size: 200px; */
+    font-style: normal; 
+    /*font-variant: small-caps;*/ font-weight: 300;
+
+    color: #102456;
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+  }
+  .buttonPadding{
+    padding: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 60px;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    border-width: 15px;
+    border-radius: 15px;
+  }
+  span{
+       font-size: 100px; 
+       font-weight: 300px;
+  }
+  .btn-default
+  {
+    background-color: rgba(250, 244, 229, 0.5);
+    color:#102456;
+    border-color: #102456;
+  }
+  .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    background-color: rgba(250, 244, 229, 1);
+    color:#102456;
+    border-color: #102456;
+  }
+</style>
+
+<div id="title">Rubiks Cube <span> Interactive </span></div>
+<div id="buttonDiv">
+  <button id="learn" type="button" class="buttonPadding btn btn-default">Learn</button>
+  <button id="solve" type="button" class="buttonPadding btn btn-default">Solve</button>
+</div>
+
+{% endblock %}

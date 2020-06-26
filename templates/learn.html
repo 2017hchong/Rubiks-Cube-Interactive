@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!doctype html>
+<script type="text/javascript" src="{{ url_for('static', filename = 'learn.js') }}"></script>
+
+
+<style type="text/css">
+  #title {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 200px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 700;
+
+    color: #102456;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+  }
+  #buttonDiv {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    /*font-size: 200px; */
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 700;
+
+    color: #102456;
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+  }
+  .buttonPadding{
+    padding: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 60px;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 3%;
+
+    border-width: 15px;
+    border-radius: 15px;
+  }
+  .btn-default
+  {
+    background-color: rgba(250, 244, 229, 0.5);
+    color:#102456;
+    border-color: #102456;
+  }
+ 
+  .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    background-color: rgba(250, 244, 229, 1);
+    color:#102456;
+    border-color: #102456;
+  }
+
+  .pageInfo {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; font-weight: 100;
+
+    color: #102456;
+    background-color: rgba(250, 244, 229, 0.8);
+
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+
+    /*margin-top: 2.5%;*/
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+</style>
+
+<div id="title">
+  Learn
+  <div class="pageInfo">There are several methods of solving a 2x2x2 Rubik's Cube. The simplest method consists of three steps. Click on step 1 below to start learning!</div>
+</div>
+<div id="buttonDiv">
+  <button id="step1" type="button" class="buttonPadding btn btn-default">Step 1</button>
+ <!--  <button id="step2" type="button" class="buttonPadding btn btn-default">Step 2</button>
+  <button id="step3" type="button" class="buttonPadding btn btn-default">Step 3</button> -->
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,308 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!doctype html>
+<script type="text/javascript" src="{{ url_for('static', filename = 'steps.js') }}"></script>
+<script type="text/javascript">
+  var currStep = {{currStep|tojson}}
+  var currStepData = {{currStepData|tojson}}
+</script>
+
+<style type="text/css">
+  #title {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 100px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 700;
+
+    color: #102456;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+  }
+  .smallerTitle{
+    font-size: 70px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 500;
+  }
+  #buttonDiv {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    /*font-size: 200px; */
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 700;
+
+    color: #102456;
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 9999;
+  }
+  .buttonPadding{
+    padding: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 60px;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 3%;
+
+    border-width: 15px;
+    border-radius: 15px;
+  }
+  .btn-default
+  {
+    background-color: rgba(250, 244, 229, 0.5);
+    color:#102456;
+    border-color: #102456;
+  }
+ 
+  .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    background-color: rgba(250, 244, 229, 1);
+    color:#102456;
+    border-color: #102456;
+  }
+
+  .pageInfo {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; font-weight: 100;
+
+    color: #102456;
+    /*background-color: rgba(250, 244, 229, 0.8);*/
+
+    padding-left: 10%;
+    padding-right: 10%;
+
+    margin-top: 0.5%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  
+  .instructionFont{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; font-weight: 100;
+  }
+
+   .instructionFontSmall{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 20px; 
+    font-style: normal; 
+    font-variant: normal; font-weight: 100;
+
+    text-align: center;
+  }
+
+
+  #instructions{
+
+    color: #102456;
+    position: fixed;
+    top: 15%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    /*padding: 10px;*/
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+  }
+  #cases{
+    padding-top: 1%;
+  }
+
+  .casesButton{
+    font-size: 25px;
+    width: 100%;
+
+    border-width: 3px;
+    border-radius: 5px;
+  
+  }
+  .goalButton{
+    /*padding: 5%;
+    padding-left: 5%;
+    padding-right: 5%;*/
+    font-size: 30px;
+    /*margin-right: 80%;*/
+    border-width: 5px;
+    border-radius: 5px;
+  
+  }
+
+  #popUpGoal{
+    background: rgba(250, 244, 229, 0.8);
+    border: 10px solid #102456;
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+    padding: 5px;
+  }
+  #popUpCase{
+    color: #102456;
+    position: fixed;
+    top: 30%;
+    left: 0;
+    right: 0;
+
+    margin-top: 1%;
+    z-index: 999;
+    width: 30%;
+    margin-right: 3%;
+    background: rgba(250, 244, 229, 0.8);
+    border: 5px solid #102456;
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+    padding: 5px;
+  }
+  #popUpMoveNotation{
+    color: #102456;
+    position: fixed;
+    top: 40%;
+    left: 0;
+    right: 0;
+
+    margin-top: 1%;
+    z-index: 999;
+    width: 70%;
+    margin-right: 3%;
+    background: rgba(250, 244, 229, 0.8);
+    border: 10px solid #102456;
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+  }
+
+  .goalImg{
+    /*flex-shrink: 0;*/
+    width: 100%;
+  }
+  .notationImg{
+    /*flex-shrink: 0;*/
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .demoImgsInfo{
+    /*position: relative;*/
+    text-align: center;
+    padding: 2%;
+  }
+  .demoImgsCont {
+    align-items: center;
+    text-align: center;
+    display: block;
+    padding-bottom: 5%;
+  }
+
+  .instructionFontSmaller{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 18px; line-height: 1.0;
+    font-variant: normal; font-weight: 100;
+
+    padding-top: 2%;
+
+    text-align: center;
+  }
+  .left-align{
+    text-align: left;
+  }
+  #moveHelpButton{
+    /*color: #102456;*/
+    /*position: fixed;*/
+    /*top: 70%;
+    left: 0;*/
+    /*position: relative;*/
+
+    z-index: 999;
+    /*align-self: center;*/
+    /*margin-top: 2%;*/
+    margin: 0;
+    position: absolute;
+    top: 108%;
+    left: 50%;
+    /*-ms-transform: translate(-50%, -50%);*/
+    transform: translate(-50%, -50%);
+  }
+  #leftInfo{
+    color: #102456;
+    position: fixed;
+    top: 20%;
+    left: 0;
+    right: 0;
+
+    margin-top: 1%;
+    z-index: 999;
+    width: 20%;
+    margin-left: 3%;
+/*
+    display: flex;
+  align-items: center;
+  justify-content: center;*/
+  }
+  .background{
+    z-index: -1;
+  }
+</style>
+
+
+<div id="instructions" class="instructionFont">
+  <div id="title"></div>
+  <div id="description" class="pageInfo"></div>
+  <div id="cases" class="container"></div>
+</div>
+
+<div id="popUpMoveNotation" class="container instructionFontSmall hidden">
+  <div class="instructionFont">
+      Move Notations
+  </div>
+  <div class="instructionFontSmall">
+    There are 6 different letters for turning the Rubik's cube, each for the 6 faces of the Rubik's cube to be turned:
+    <div class="container">
+      <div class="row">
+        <div class="col-9 left-align">
+          <li>F (front): the face facing the solver</li>
+          <li>B (back): the back face</li>
+          <li>R (right): the right face</li>
+          <li>L (left): the left face</li>
+          <li>U (up): the upper face</li>
+          <li>D (down): the face opposite to the upper face</li>
+        </div>
+        <div class="col-3">
+          <img class = "notationImg" src="{{url_for('static', filename='imgs/moveNotation.png')}}">
+        </div>
+      </div>
+    </div>
+    <br>
+    The letter means turning a single turn, (90°), clockwise, the corresponding face.
+    <br>
+    Letter followed by an apostrophe mark (') (known as "prime") means turning the corresponding face a single turn, (90°), counter-clockwise.
+  </div>
+</div>
+
+<div id="leftInfo">
+  <div id="popUpGoal" class="instructionFontSmall">
+    <div class="instructionFont">
+        Goal
+    </div>
+    <div id="goalImageDiv" class="thumbnail">
+    </div>
+  </div>
+
+  <button id="moveHelpButton" class='casesButton btn btn-default helpShadowSmall instructionFontSmaller '>Move Notations Help</button>
+</div>
+
+
+<div id="popUpCase" class="container instructionFontSmall">
+</div>
+
+<div id="buttonDiv" class="hidden">
+  <button id="continue" type="button" class="buttonPadding btn btn-default">Continue</button>
+</div>
+
+
+{% endblock %}

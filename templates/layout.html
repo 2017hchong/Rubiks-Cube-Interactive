@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <!-- JQuery -->
+  <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  
+  <script type="text/javascript" src="{{ url_for('static', filename = 'cubeClass.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename = 'three.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename = 'canvas.js') }}"></script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename = 'home.js') }}"></script>
+
+  <script type="text/javascript">
+    var cubeOrientation = {{cubeOrientation|tojson}}
+  </script>
+
+<title>Rubik's Cube Interactive</title>
+</head>
+<body>
+	<style type="text/css">
+	.padded{
+		padding-top: 5%;
+	}
+
+  body {
+    background-color: #FAF4E5;
+    color: #444;
+  }
+  canvas { 
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #cubeDiv {
+    /*position: static;
+    height: 100%;*/
+    display: block;
+  }
+  #help {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    /*padding: 12px;*/
+    border-radius: 50%;
+    margin-bottom: 0px;
+    /*background-color: #FFF;*/
+    opacity: .9;
+    z-index: 999;
+  }
+  .helpShadow{
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+  }
+  .helpShadowSmall{
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+  }
+  #bottomOverlay {
+    color: #70858f;
+    position: fixed;
+    bottom: 16px;
+    width: 100%;
+    left: 16px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+    /*line-height: 1.2;*/
+    /*background-color: rgba(255,255,255,.3);*/
+    /*padding-left: 10%;*/
+    z-index: 1;
+  }
+  #popupInfo {
+    position: fixed;
+    bottom: 4px;
+    top: 10%;
+    right: 8px;
+    width: 100%;
+    margin-bottom: 0%;
+    margin-right: 5%;
+    margin-left: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    z-index: 999;
+    background: rgba(250, 244, 229, 0.8);
+    border: 10px solid #102456;
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+  }
+  .imgCont {
+    display: flex;
+    overflow: hidden;
+    border: 5px solid rgba(250, 244, 229, 0.5);
+    margin-top: 1%;
+    margin-bottom: 1%;
+
+    /*box-shadow: 0 0 15px rgba(0,0,0,.5);*/
+    background: rgba(250, 244, 229, 1.0);
+  }
+  .demoImgs{
+    /*flex-shrink: 0;*/
+    width: 50%;
+  }
+  .demoImgsInfo{
+    /*position: relative;*/
+    text-align: center;
+    padding: 2%;
+  }
+  .demoImgsCont {
+    align-items: center;
+    text-align: center;
+    display: block;
+    padding-bottom: 5%;
+  }
+  .finalDemoCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .final {
+    width: 100%;
+  }
+  .finalDemo {
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+  }
+  .finalDemoImgs{
+    flex-shrink: 0;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .hidden{
+    display: none;
+  }
+
+  #navMenu{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 30px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 300;
+
+    
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    padding-top: 0.5%;
+    padding-left: 2%;
+    box-sizing: border-box;
+    text-align: left;
+    z-index: 9999;
+  }
+
+  a:link {
+    color: #102456;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: #102456;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #186a81;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
+  a:active {
+    color: #186a81;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
+	</style>
+
+	<!-- <nav class="shadow navbar fixed-top navbar-expand-lg ">
+  <a class="navbar-brand color1" href="/">Learn Rubik's Cube</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+      <li class="nav-item" id="learnItem">
+        <a class="nav-link color2" href="/learn">Learn</a>
+      </li>
+      <li class="nav-item" id="testItem">
+        <a class="nav-link color2" href="/test">Test</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+ -->
+
+<div id="navMenu">
+  <a href="/">Home</a>
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+<div id="cubeDiv" class="container">
+  <canvas id="cubeCanvas"></canvas>
+  <img id="help" class="helpShadowSmall hidden" src="{{url_for('static', filename='imgs/help.png')}}"  alt="Help">
+
+  <!-- <div > -->
+    <div id="popupInfo" class="container hidden">
+      <div class="row">
+
+        <div class="imgCont col-4">
+          <div class="row">
+            <div class="demoImgsCont col-12">
+              <img class="demoImgs" src="{{url_for('static', filename='imgs/rotate.gif')}}"/>
+            </div>
+            <div class="col-12 demoImgsInfo">
+              Use the left mouse button to rotate the cube.
+            </div>
+          </div>
+        </div>
+        <!-- <div class="imgCont"><img class="demoImgs" src="{{url_for('static', filename='imgs/select.gif')}}"/></div> -->
+        <div class="imgCont col-4">
+          <div class="row">
+            <div class="demoImgsCont col-12">
+              <img class="demoImgs" src="{{url_for('static', filename='imgs/holdR.gif')}}"/>
+            </div>
+            <div class="col-12 demoImgsInfo">
+              While holding 'Spacebar', point the mouse to a face to see the directions that side can rotate.
+            </div>
+          </div>
+        </div>
+
+        <div class="imgCont col-4">
+          <div class="row">
+            <div class="demoImgsCont col-12">
+              <img class="demoImgs" src="{{url_for('static', filename='imgs/highLightPoint.gif')}}"/>
+            </div>
+            <div class="col-12 demoImgsInfo">
+              While holding 'Spacebar' click and drag to either of the spheres to rotate in that direction.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row"> 
+        <div class="imgCont final">
+          <div class="finalDemoCont col-6">
+              <img class="finalDemoImgs" src="{{url_for('static', filename='imgs/full.gif')}}"/>
+          </div>
+          <div class="col-6 finalDemo"> Orient the cube, hold 'Spacebar' while pointing to a face, then click and drag to a point to manipulate the cube easily.</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- </div> -->
+    <div id="bottomOverlay" class="hidden">
+      Click and drag to rotate the cube <br> Hold 'Spacebar' and click and drag on one of the spheres to rotate a side. <br> Hover on the help button on the right for more info
+    </div>
+  </div>
+
+
+</body>
+</html>

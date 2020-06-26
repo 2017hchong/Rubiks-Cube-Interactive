@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!doctype html>
+<script type="text/javascript" src="{{ url_for('static', filename = 'solve.js') }}"></script>
+
+<style type="text/css">
+  #title {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 100px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 700;
+
+    color: #102456;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+  }
+  .smallerTitle{
+    font-size: 70px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 500;
+  }
+  #buttonDiv {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    /*font-size: 200px; */
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 700;
+
+    color: #102456;
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 9999;
+  }
+  .buttonPadding{
+    padding: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 60px;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 3%;
+
+    border-width: 15px;
+    border-radius: 15px;
+  }
+  .btn-default
+  {
+    background-color: rgba(250, 244, 229, 0.5);
+    color:#102456;
+    border-color: #102456;
+  }
+ 
+  .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    background-color: rgba(250, 244, 229, 1);
+    color:#102456;
+    border-color: #102456;
+  }
+
+  .pageInfo {
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; font-weight: 100;
+
+    color: #102456;
+    /*background-color: rgba(250, 244, 229, 0.8);*/
+
+    padding-left: 10%;
+    padding-right: 10%;
+
+    margin-top: 0.5%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  
+  .instructionFont{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 25px; 
+    font-style: normal; 
+    font-variant: normal; font-weight: 100;
+  }
+
+   .instructionFontSmall{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 20px; 
+    font-style: normal; 
+    font-variant: normal; font-weight: 100;
+
+    text-align: center;
+  }
+
+  #instructions{
+    color: #102456;
+    position: fixed;
+    top: 15%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    /*padding: 10px;*/
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 999;
+  }
+
+  #cases{
+    padding-top: 1%;
+  }
+
+  .casesButton{
+    font-size: 25px;
+    width: 100%;
+
+    border-width: 3px;
+    border-radius: 5px;
+  
+  }
+
+  .big{ 
+    font-size: 50px;
+    width: 80%;
+
+    margin-top: 5%;
+
+    border-width: 10px;
+    border-radius: 20px;
+  }
+
+  .leftAlign{
+    text-align: left;
+  }
+
+  #resultsPopUp{
+    color: #102456;
+    position: fixed;
+    top: 30%;
+    left: 10%;
+
+    margin-top: 1%;
+    z-index: 999;
+    width: 80%;
+    margin-right: 3%;
+    background: rgba(250, 244, 229, 0.8);
+    border: 30px solid #102456;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,.5);
+
+    text-align: center;
+
+    padding: 2%;
+  }
+
+  #resultsTitle{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 80px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 500;
+  }
+
+  #resultsInfo{
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+    font-size: 50px; 
+    font-style: normal; 
+    font-variant: small-caps; font-weight: 200;
+  }
+
+  .color2{
+    color: red;
+  }
+  
+</style>
+
+
+<div id="instructions" class="instructionFont">
+  <div id="title">Solve the Rubik's Cube</div>
+  <div id="description" class="pageInfo">Press Start to start the timer. See if you can beat the high scores!</div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-2 leftAlign">Time: <br><span id="time">0:00</span></div>
+      <div class="col-6"></div>
+      <div class="col-2">
+        <button id="shuffle" class="casesButton btn btn-default helpShadowSmall">Shuffle</button>
+      </div>
+      <div class="col-2">
+        <button id="reset" class="casesButton btn btn-default helpShadowSmall">Reset</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8"></div>
+      <div class="col-4">
+        <button id="start" class="big btn btn-default helpShadowSmall">Start</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="resultsPopUp">
+  <div id="resultsTitle">
+    <!-- Congrats! -->
+  </div>
+  <div id="resultsInfo">
+    <!-- You solved the 2x2 Rubik's Cube in <span id="timeTaken" class="color2">0:25:00</span>! Way to Go! -->
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <button id="playAgain" class="big btn btn-default helpShadowSmall instructionFont">Play Again</button>
+      </div>
+      <div class="col-6">
+        <button id="home" class="big btn btn-default helpShadowSmall instructionFont">Home</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}

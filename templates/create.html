@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename = 'create.js') }}"></script>
+
+<style type="text/css">
+
+		#outside{
+			padding-right: 10%;
+			padding-left: 10%;
+			padding-top: 5%;
+			padding-bottom: 5%;
+			text-align: center;
+		}
+		#lyrics{
+			height: 500px;
+		}
+		#message{
+			font-size:24px;
+			color: black;
+		}
+		.error{
+			color: red;
+		}
+		.input{
+			padding: 10px;
+		}
+		.buttonSee{
+			height: 30px;
+			width: 120px;
+			padding: 10px;
+			padding-bottom: 5%;
+			text-align: center;
+		}
+
+	</style>
+<body>
+	<div id="outside">
+		<div id="message" class="red"></div>
+		<div class="input" id="titleInput">
+			<span class="error"></span>
+			<span>Song Title: </span> 
+			<input class="form-control valid validBox in" type="text" placeholder="Let It Go">
+		</div>
+		<div class="input" id="yearInput" >
+			<span class="error"></span>
+			<span>Year: </span>
+			<input class="form-control valid validBox in" type="text" placeholder="2013">
+		</div>
+		<div class="input" id="movieInput">
+			<span class="error"></span>
+			<span>Movie: </span>
+			<input class="form-control valid validBox in" type="text" placeholder="Frozen">
+		</div>
+		<div class="input" id="imageInput" >
+			<span class="error"></span>
+			<span>Image link: </span> 
+			<input class="form-control valid validBox in" type="text" placeholder="https://target.scene7.com/is/image/Target/GUEST_7e601f02-0c9e-4591-8d25-6102622d5390?wid=488&hei=488&fmt=pjpeg">
+		</div>
+		<div class="input" id="lyricsInput">
+			<span class="error"></span>
+			<span>Lyrics: </span> 
+			<textarea class="form-control valid validBox in" type="text" id="lyrics"></textarea>
+		</div>
+		<div class="submit">
+			<button type='button' class='btn btn-primary' id="submitButtonCreate">Submit</button>
+		</div>
+	</div>
+</body>
+
+{% endblock %}
+
+
